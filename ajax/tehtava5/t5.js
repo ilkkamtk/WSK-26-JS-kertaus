@@ -38,7 +38,7 @@ const teeMenuHTML = (courses) => {
   return html;
 };
 
-const main = async () => {
+(async () => {
   const restaurants = await haeRavintolat();
   // restaurants aakkosjärjestykseen
   restaurants.sort(function (a, b) {
@@ -82,6 +82,4 @@ const main = async () => {
     tr.append(nameTd, addressTd, cityTd);
     taulukko.append(tr);
   }
-};
-
-main();
+})();
