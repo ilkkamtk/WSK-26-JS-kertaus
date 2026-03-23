@@ -1,0 +1,30 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  color: #000000;
+}
+
+input {
+  padding: 0.25rem;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 0.5rem;
+}
+
+button[type="submit"] {
+  margin-bottom: 1rem;
+  background-color: palegreen;
+}
+
+@media (max-width: 400px) {
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+}
