@@ -24,3 +24,8 @@ td {
   border-bottom: 1px solid #ccc;
   padding: 0.5em 1em;
 }
+
+.highlight {
+  background-color: #a7a7a7;
+  font-weight: bold;
+}
