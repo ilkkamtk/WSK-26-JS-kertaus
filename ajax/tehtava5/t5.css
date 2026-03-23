@@ -1,31 +1,94 @@
 body {
-  background-color: #f0f0f0;
-  font-family: sans-serif;
+  background: linear-gradient(180deg, #f6f6f4 0%, #f0efec 100%);
+  color: #1f1f1f;
+  font-family: 'Verdana';
   margin: 0;
   padding: 0;
+}
+
+h1 {
+  letter-spacing: 0.02em;
+  margin: 2.5rem auto 1rem;
+  max-width: 960px;
+  padding: 0 1.5rem;
 }
 
 table {
+  background-color: #ffffff;
   border-collapse: collapse;
   border-spacing: 0;
-  margin: 0;
-  padding: 0;
+  box-shadow: 0 20px 40px rgba(31, 31, 31, 0.08);
+  margin: 0 auto 3rem;
+  max-width: 960px;
+  overflow: hidden;
+  width: calc(100% - 3rem);
+}
+
+tr {
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+tr:hover {
+  background-color: #f5f1e8;
 }
 
 th {
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #ccc;
+  background-color: #f0ede6;
+  border-bottom: 1px solid #d7d1c6;
   font-weight: normal;
-  padding: 0.5em 1em;
+  letter-spacing: 0.06em;
+  padding: 0.85em 1.25em;
   text-align: left;
+  text-transform: uppercase;
 }
 
 td {
-  border-bottom: 1px solid #ccc;
-  padding: 0.5em 1em;
+  border-bottom: 1px solid #ece7dc;
+  padding: 0.75em 1.25em;
 }
 
 .highlight {
-  background-color: #a7a7a7;
+  background-color: #2f2c27;
+  color: #f8f4eb;
   font-weight: bold;
+}
+
+dialog#modal {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 30px 70px rgba(28, 25, 20, 0.25);
+  max-width: 620px;
+  padding: 2rem 2.25rem;
+  width: min(90vw, 620px);
+}
+
+dialog#modal::backdrop {
+  background: rgba(30, 28, 25, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+dialog#modal h3 {
+  font-size: 1.5rem;
+  margin: 0 0 1rem;
+}
+
+.course {
+  border-bottom: 1px solid #efe9df;
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.75rem 0;
+}
+
+.course:last-child {
+  border-bottom: none;
+}
+
+.course p {
+  margin: 0;
+}
+
+.course strong {
+  color: #2c2018;
 }
