@@ -30,7 +30,7 @@ const teeMenuHTML = (courses) => {
     html += `
     <article class="course">
       <p><strong>${course.name}</strong></p>
-      <p>Hinta: ${course.price}</p>
+      <p>Hinta: ${course.price ?? 'Ei ilmoitettu'}</p>
       <p>Allergeenit: ${course.diets}</p>
     </article>
     `;
@@ -41,14 +41,14 @@ const teeMenuHTML = (courses) => {
 (async () => {
   const restaurants = await haeRavintolat();
   // restaurants aakkosjärjestykseen
-  restaurants.sort(function (a, b) {
-    return a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1;
-  });
+  restaurants.sort((a, b) =>
+    a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1
+  );
 
   for (const restaurant of restaurants) {
     // rivi
     const tr = document.createElement('tr');
-    tr.addEventListener('click', async function () {
+    tr.addEventListener('click', async () => {
       for (const elem of document.querySelectorAll('.highlight')) {
         elem.classList.remove('highlight');
       }
@@ -78,8 +78,11 @@ const teeMenuHTML = (courses) => {
     // kaupunkisolu
     const cityTd = document.createElement('td');
     cityTd.innerText = restaurant.city;
+    // firmasolu
+    const firmaTd = document.createElement('td');
+    firmaTd.innerText = restaurant.company;
     // lisätään solut riviin
-    tr.append(nameTd, addressTd, cityTd);
+    tr.append(nameTd, addressTd, cityTd, firmaTd);
     taulukko.append(tr);
   }
 })();
