@@ -1,4 +1,6 @@
 'use strict';
+import fetchData from './modules/fetchData.js';
+import restaurantRow from './modules/restaurantRow.js';
 
 const apiUrl = 'https://media2.edu.metropolia.fi/restaurant/api/v1';
 
@@ -8,7 +10,6 @@ const modal = document.querySelector('#modal');
 
 const haeRavintolat = async () => {
   try {
-    // eslint-disable-next-line no-undef
     return await fetchData(apiUrl + '/restaurants');
   } catch (error) {
     console.error(error);
@@ -17,7 +18,6 @@ const haeRavintolat = async () => {
 
 const haePaivanMenu = async (id, lang) => {
   try {
-    // eslint-disable-next-line no-undef
     return await fetchData(apiUrl + `/restaurants/daily/${id}/${lang}`);
   } catch (error) {
     console.error(error);
@@ -53,26 +53,6 @@ const teeMenuHTML = (courses) => {
     `;
   }
   return html;
-};
-
-const restaurantRow = (restaurant) => {
-  const {name, address, city, company} = restaurant;
-  const tr = document.createElement('tr');
-  // nimisolu
-  const nameTd = document.createElement('td');
-  nameTd.innerText = name;
-  // osoitesolu
-  const addressTd = document.createElement('td');
-  addressTd.innerText = address;
-  // kaupunkisolu
-  const cityTd = document.createElement('td');
-  cityTd.innerText = city;
-  // firmasolu
-  const firmaTd = document.createElement('td');
-  firmaTd.innerText = company;
-  // lisätään solut riviin
-  tr.append(nameTd, addressTd, cityTd, firmaTd);
-  return tr;
 };
 
 const restaurantModal = (restaurant, menu) => {
