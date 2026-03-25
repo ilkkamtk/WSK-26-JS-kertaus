@@ -1,5 +1,6 @@
 'use strict';
 import fetchData from './modules/fetchData.js';
+import restaurantModal from './modules/restaurantModal.js';
 import restaurantRow from './modules/restaurantRow.js';
 
 const apiUrl = 'https://media2.edu.metropolia.fi/restaurant/api/v1';
@@ -22,45 +23,6 @@ const haePaivanMenu = async (id, lang) => {
   } catch (error) {
     console.error(error);
   }
-};
-
-const teeMenuHTML = (courses) => {
-  let html = '';
-  for (const course of courses) {
-    const {name, price, diets} = course;
-    html += `
-    <article class="course">
-      <p><strong>${name || 'Ei ilmoitettu'}</strong></p>
-      <p>Hinta: ${price || 'Ei ilmoitettu'}</p>
-      <p>Allergeenit: ${diets.reduce((allergeenit, diet) => {
-        // eslint-disable-next-line no-useless-assignment
-        let ikoni = '';
-        switch (diet) {
-          case 'G':
-            ikoni = '&#127806;&#128683;';
-            break;
-          case 'A':
-            ikoni = '&#127828;';
-            break;
-          default:
-            ikoni = '&#127786;';
-            break;
-        }
-        allergeenit += ' | ' + ikoni;
-        return allergeenit;
-      }, '')}</p>
-    </article>
-    `;
-  }
-  return html;
-};
-
-const restaurantModal = (restaurant, menu) => {
-  // tee modalin sisältö
-  const nameH3 = document.createElement('h3');
-  nameH3.innerText = restaurant.name;
-  const menuHTML = teeMenuHTML(menu.courses);
-  return nameH3 + menuHTML;
 };
 
 (async () => {
