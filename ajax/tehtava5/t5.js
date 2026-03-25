@@ -27,16 +27,17 @@ const haePaivanMenu = async (id, lang) => {
 const teeMenuHTML = (courses) => {
   let html = '';
   for (const course of courses) {
+    const {name, price, diets} = course;
     html += `
     <article class="course">
-      <p><strong>${course.name || 'Ei ilmoitettu'}</strong></p>
-      <p>Hinta: ${course.price || 'Ei ilmoitettu'}</p>
-      <p>Allergeenit: ${course.diets.reduce((allergeenit, diet) => {
+      <p><strong>${name || 'Ei ilmoitettu'}</strong></p>
+      <p>Hinta: ${price || 'Ei ilmoitettu'}</p>
+      <p>Allergeenit: ${diets.reduce((allergeenit, diet) => {
         // eslint-disable-next-line no-useless-assignment
         let ikoni = '';
         switch (diet) {
           case 'G':
-            ikoni = '&#127829;';
+            ikoni = '&#127806;&#128683;';
             break;
           case 'A':
             ikoni = '&#127828;';
@@ -54,6 +55,34 @@ const teeMenuHTML = (courses) => {
   return html;
 };
 
+const restaurantRow = (restaurant) => {
+  const {name, address, city, company} = restaurant;
+  const tr = document.createElement('tr');
+  // nimisolu
+  const nameTd = document.createElement('td');
+  nameTd.innerText = name;
+  // osoitesolu
+  const addressTd = document.createElement('td');
+  addressTd.innerText = address;
+  // kaupunkisolu
+  const cityTd = document.createElement('td');
+  cityTd.innerText = city;
+  // firmasolu
+  const firmaTd = document.createElement('td');
+  firmaTd.innerText = company;
+  // lisätään solut riviin
+  tr.append(nameTd, addressTd, cityTd, firmaTd);
+  return tr;
+};
+
+const restaurantModal = (restaurant, menu) => {
+  // tee modalin sisältö
+  const nameH3 = document.createElement('h3');
+  nameH3.innerText = restaurant.name;
+  const menuHTML = teeMenuHTML(menu.courses);
+  return nameH3 + menuHTML;
+};
+
 (async () => {
   const restaurants = await haeRavintolat();
   // restaurants aakkosjärjestykseen
@@ -63,7 +92,8 @@ const teeMenuHTML = (courses) => {
 
   for (const restaurant of restaurants) {
     // rivi
-    const tr = document.createElement('tr');
+    const tr = restaurantRow(restaurant);
+
     tr.addEventListener('click', async () => {
       for (const elem of document.querySelectorAll('.highlight')) {
         elem.classList.remove('highlight');
@@ -75,30 +105,14 @@ const teeMenuHTML = (courses) => {
       modal.innerHTML = '';
       // avaa modal
       modal.showModal();
-      // tee modalin sisältö
-      const nameH3 = document.createElement('h3');
-      nameH3.innerText = restaurant.name;
-      modal.append(nameH3);
 
       const pMenu = await haePaivanMenu(restaurant._id, 'fi');
-      const menuHTML = teeMenuHTML(pMenu.courses);
-      modal.insertAdjacentHTML('beforeend', menuHTML);
+
+      const modalHTML = restaurantModal(restaurant, pMenu);
+
+      modal.insertAdjacentHTML('beforeend', modalHTML);
     });
 
-    // nimisolu
-    const nameTd = document.createElement('td');
-    nameTd.innerText = restaurant.name;
-    // osoitesolu
-    const addressTd = document.createElement('td');
-    addressTd.innerText = restaurant.address;
-    // kaupunkisolu
-    const cityTd = document.createElement('td');
-    cityTd.innerText = restaurant.city;
-    // firmasolu
-    const firmaTd = document.createElement('td');
-    firmaTd.innerText = restaurant.company;
-    // lisätään solut riviin
-    tr.append(nameTd, addressTd, cityTd, firmaTd);
     taulukko.append(tr);
   }
 })();
