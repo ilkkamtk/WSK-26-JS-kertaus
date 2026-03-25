@@ -29,9 +29,25 @@ const teeMenuHTML = (courses) => {
   for (const course of courses) {
     html += `
     <article class="course">
-      <p><strong>${course.name}</strong></p>
-      <p>Hinta: ${course.price ?? 'Ei ilmoitettu'}</p>
-      <p>Allergeenit: ${course.diets}</p>
+      <p><strong>${course.name || 'Ei ilmoitettu'}</strong></p>
+      <p>Hinta: ${course.price || 'Ei ilmoitettu'}</p>
+      <p>Allergeenit: ${course.diets.reduce((allergeenit, diet) => {
+        // eslint-disable-next-line no-useless-assignment
+        let ikoni = '';
+        switch (diet) {
+          case 'G':
+            ikoni = '&#127829;';
+            break;
+          case 'A':
+            ikoni = '&#127828;';
+            break;
+          default:
+            ikoni = '&#127786;';
+            break;
+        }
+        allergeenit += ' | ' + ikoni;
+        return allergeenit;
+      }, '')}</p>
     </article>
     `;
   }
