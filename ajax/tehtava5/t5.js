@@ -50,9 +50,9 @@ const haePaivanMenu = async (id, lang) => {
 
       const pMenu = await haePaivanMenu(restaurant._id, 'fi');
 
-      const modalHTML = restaurantModal(restaurant, pMenu);
+      const modalDOM = restaurantModal(restaurant, pMenu);
 
-      modal.insertAdjacentHTML('beforeend', modalHTML);
+      modal.append(modalDOM);
     });
 
     taulukko.append(tr);

@@ -1,3 +1,5 @@
+// muuta DOM metodeiksi
+
 const teeMenuHTML = (courses) => {
   let html = '';
   for (const course of courses) {
